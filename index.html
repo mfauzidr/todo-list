@@ -7,15 +7,116 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-
     <title>Todo List</title>
   </head>
 
   <body>
     <div id="app">
-      Todo Apps
+      <!-- Header -->
+      <header class="flex flex-col items-center justify-center">
+        <h1 class="">TODO LIST</h1>
+        <!-- Profile -->
+         <container class="flex w-full justify-between">
+          
+           <section>
+             <div>
+               <img src="" alt="" />
+             </div>
+   
+             <div>
+               <h2>Fauzi</h2>
+               <p>Frontend Developer</p>
+             </div>
+           </section>
+   
+           <!-- Date -->
+           <section>
+             <p>Sunday</p>
+             <p>September 21, 2026</p>
+           </section>
+         </container>
+      </header>
+
+      <!-- Main Content -->
+      <main>
+        <!-- Create Todo -->
+        <section class="flex flex-col">
+          <header class="flex justify-center">
+            <h1>Create Task</h1>
+          </header>
+
+          <form>
+            <!-- Todo Input -->
+            <div class="flex flex-col">
+              <label for="todo-title">What do you need to do today?</label>
+
+              <textarea
+                id="todo-title"
+                name="title"
+                placeholder="Write your task..."
+              ></textarea>
+            </div>
+
+            <!-- Priority -->
+            <fieldset>
+              <legend>Priority</legend>
+
+              <label>
+                <input type="radio" name="priority" value="low" />
+                Low
+              </label>
+
+              <label>
+                <input type="radio" name="priority" value="medium" />
+                Medium
+              </label>
+
+              <label>
+                <input type="radio" name="priority" value="high" />
+                High
+              </label>
+            </fieldset>
+
+            <!-- Submit -->
+            <button type="submit">
+              Add Task
+            </button>
+          </form>
+        </section>
+
+        <!-- Todo List -->
+        <section>
+          <header class="flex flex-col">
+            <h2 class="flex justify-center">To Do</h2>
+            <span>0 tasks</span>
+          </header>
+
+          <ul id="todo-list">
+            <!-- Todo items will be rendered here -->
+          </ul>
+        </section>
+
+        <!-- Done List -->
+        <section>
+          <header class="flex flex-col">
+            <h2 class="flex justify-center">Task Done</h2>
+            <span>0 tasks</span>
+          </header>
+
+          <ul id="done-list">
+            <!-- Completed items will be rendered here -->
+          </ul>
+        </section>
+
+        <!-- Delete All -->
+        <section>
+          <button type="button" id="delete-all">
+            Delete All
+          </button>
+        </section>
+      </main>
     </div>
 
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="./src/main.ts"></script>
   </body>
 </html>
