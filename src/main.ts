@@ -1,11 +1,14 @@
 import "./style.css";
 import { todoData } from "./data/todo.data";
+import { createTodoRow } from "./render/todoRender";
 
 const todos = [...todoData];
 
 function renderTodos() {
-  const todoList = document.querySelector<HTMLUListElement>("#todo-list");
-  const doneList = document.querySelector<HTMLUListElement>("#done-list");
+  const todoList =
+    document.querySelector<HTMLTableSectionElement>("#todo-list");
+  const doneList =
+    document.querySelector<HTMLTableSectionElement>("#done-list");
 
   if (!todoList || !doneList) {
     throw new Error("Todo list element not found");
@@ -18,15 +21,13 @@ function renderTodos() {
   const doneItems = todos.filter((todo) => todo.completed);
 
   todoItems.forEach((todo) => {
-    const li = document.createElement("li");
-    li.textContent = todo.title;
-    todoList.appendChild(li);
+    const row = createTodoRow(todo);
+    todoList.appendChild(row);
   });
 
   doneItems.forEach((todo) => {
-    const li = document.createElement("li");
-    li.textContent = todo.title;
-    doneList.appendChild(li);
+    const row = createTodoRow(todo);
+    doneList.appendChild(row);
   });
 }
 
