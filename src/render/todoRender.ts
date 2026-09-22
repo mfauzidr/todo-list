@@ -1,7 +1,8 @@
 import type { Todo } from "../types/todo";
 import deleteSVG from "../assets/icons/delete.svg";
+import checkedSVG from "../assets/icons/checked.svg";
 
-export function createTodoRow(todo: Todo): HTMLTableRowElement {
+export const createTodoRow = (todo: Todo): HTMLTableRowElement => {
   const tr = document.createElement("tr");
   tr.className = "text-xs md:text-sm lg:text-base";
 
@@ -10,13 +11,11 @@ export function createTodoRow(todo: Todo): HTMLTableRowElement {
   taskName.className = "px-6 py-2 border-r border-gray-300";
 
   const priority = document.createElement("td");
-  priority.className =
-    "px-6 py-2 border-r border-gray-300 text-center";
+  priority.className = "px-6 py-2 border-r border-gray-300 text-center";
 
   const priorityBadge = document.createElement("span");
   priorityBadge.textContent = todo.priority;
-  priorityBadge.className =
-    "capitalize px-2 py-0.5 rounded-full text-xs";
+  priorityBadge.className = "capitalize px-2 py-0.5 rounded-full text-xs";
 
   switch (todo.priority) {
     case "low":
@@ -35,12 +34,28 @@ export function createTodoRow(todo: Todo): HTMLTableRowElement {
   priority.appendChild(priorityBadge);
 
   const action = document.createElement("td");
-  action.className =
-    "px-6 py-2 flex gap-2 w-full justify-center items-center";
+  action.className = "px-3 py-2";
 
-  const checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  checkbox.checked = todo.completed;
+  const actionWrapper = document.createElement("div");
+  actionWrapper.className = "flex items-center justify-center gap-2";
+
+  let statusElement: HTMLInputElement | HTMLImageElement;
+
+  if (todo.completed) {
+    const checkedIcon = document.createElement("img");
+
+    checkedIcon.src = checkedSVG;
+    checkedIcon.alt = "Completed";
+    checkedIcon.className = "w-5 h-5";
+
+    statusElement = checkedIcon;
+  } else {
+    const checkbox = document.createElement("input");
+
+    checkbox.type = "checkbox";
+
+    statusElement = checkbox;
+  }
 
   const deleteButton = document.createElement("button");
 
@@ -51,9 +66,10 @@ export function createTodoRow(todo: Todo): HTMLTableRowElement {
 
   deleteButton.appendChild(deleteIcon);
 
-  action.append(checkbox, deleteButton);
+  actionWrapper.append(statusElement, deleteButton);
+  action.appendChild(actionWrapper);
 
   tr.append(taskName, priority, action);
 
   return tr;
-}
+};

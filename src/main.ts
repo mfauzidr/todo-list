@@ -4,7 +4,7 @@ import { createTodoRow } from "./render/todoRender";
 
 const todos = [...todoData];
 
-function renderTodos() {
+export const renderTodos = () => {
   const todoList =
     document.querySelector<HTMLTableSectionElement>("#todo-list");
   const doneList =
@@ -31,4 +31,4 @@ function renderTodos() {
   });
 }
 
-renderTodos();
+renderTodos()

@@ -3,14 +3,14 @@ import type { Todo } from "../types/todo";
 export const todoData: Todo[] = [
   {
     id: "1",
-    title: "A",
+    title: "Mengerjakan Mission",
     priority: "high",
     createdAt: "2026-09-21T09:00:00",
     completed: false,
   },
   {
     id: "2",
-    title: "A",
+    title: "Belajar Javascript dan Typescript",
     priority: "medium",
     createdAt: "2026-09-21T10:00:00",
     completed: false,
