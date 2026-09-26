@@ -2,7 +2,11 @@ import type { Todo } from "../types/todo";
 import deleteSVG from "../assets/icons/delete.svg";
 import checkedSVG from "../assets/icons/checked.svg";
 
-export const createTodoRow = (todo: Todo): HTMLTableRowElement => {
+export const createTodoRow = (
+  todo: Todo,
+  onChange: () => void,
+  onDelete: (id: string) => void,
+): HTMLTableRowElement => {
   const tr = document.createElement("tr");
   tr.className = "text-xs md:text-sm lg:text-base";
 
@@ -53,11 +57,22 @@ export const createTodoRow = (todo: Todo): HTMLTableRowElement => {
     const checkbox = document.createElement("input");
 
     checkbox.type = "checkbox";
+    checkbox.addEventListener("change", () => {
+      todo.completed = true;
+      onChange();
+    });
 
     statusElement = checkbox;
   }
 
   const deleteButton = document.createElement("button");
+  deleteButton.addEventListener("click", () => {
+    const row = deleteButton.closest("tr");
+
+    console.log(row);
+
+    onDelete(todo.id);
+  });
 
   const deleteIcon = document.createElement("img");
   deleteIcon.src = deleteSVG;
