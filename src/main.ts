@@ -1,53 +1,123 @@
 import "./style.css";
 import { todoData } from "./data/todo.data";
-import { createTodoRow } from "./render/todoRender";
+import { createTodoCard } from "./render/todoRender";
 import { renderDate } from "./render/dateRender";
 import { Todo } from "./types/todo";
 
-const todos = [...todoData];
+let todos: Todo[] = [...todoData];
+
+const saveTodos = () => {
+  localStorage.setItem("todos", JSON.stringify(todos));
+};
+
+const loadTodos = () => {
+  const storedTodos = localStorage.getItem("todos");
+  if (storedTodos) {
+    const parsedTodos = JSON.parse(storedTodos);
+    todos = parsedTodos;
+  }
+};
 
 // Render Todo //
 
 export const renderTodos = () => {
-  const todoList =
-    document.querySelector<HTMLTableSectionElement>("#todo-list");
-  const doneList =
-    document.querySelector<HTMLTableSectionElement>("#done-list");
+  const todayList = document.querySelector<HTMLDivElement>("#today-list");
 
-  if (!todoList || !doneList) {
+  const upcomingList = document.querySelector<HTMLDivElement>("#upcoming-list");
+
+  const overdueList = document.querySelector<HTMLDivElement>("#overdue-list");
+
+  const doneList = document.querySelector<HTMLDivElement>("#done-list");
+
+  if (!todayList || !upcomingList || !overdueList || !doneList) {
     throw new Error("Todo list element not found");
   }
 
-  todoList.innerHTML = "";
+  todayList.innerHTML = "";
+  upcomingList.innerHTML = "";
+  overdueList.innerHTML = "";
   doneList.innerHTML = "";
 
-  const todoItems = todos.filter((todo) => !todo.completed);
+  const currentDate = new Date();
+
+  const today = `${currentDate.getFullYear()}-${String(
+    currentDate.getMonth() + 1,
+  ).padStart(2, "0")}-${String(currentDate.getDate()).padStart(2, "0")}`;
+
+  const activeTodos = todos.filter((todo) => !todo.completed);
+
+  const todayItems = activeTodos.filter((todo) => todo.dueDate === today);
+
+  const upcomingItems = activeTodos.filter((todo) => todo.dueDate > today);
+
+  const overdueItems = activeTodos.filter((todo) => todo.dueDate < today);
+
   const doneItems = todos.filter((todo) => todo.completed);
 
-  todoItems.forEach((todo) => {
-    const row = createTodoRow(todo, renderTodos, (id) => {
-      const index = todos.findIndex((todo) => todo.id === id);
+  const handleDelete = (id: string) => {
+    const index = todos.findIndex((todo) => todo.id === id);
 
-      if (index !== -1) {
-        todos.splice(index, 1);
-      }
+    if (index !== -1) {
+      todos.splice(index, 1);
+    }
+    saveTodos();
+    renderTodos();
+  };
 
-      renderTodos();
-    });
-    todoList.appendChild(row);
+  todayItems.forEach((todo) => {
+    const card = createTodoCard(
+      todo,
+      () => {
+        saveTodos();
+        renderTodos();
+      },
+      handleDelete,
+      "today",
+    );
+
+    todayList.appendChild(card);
+  });
+
+  upcomingItems.forEach((todo) => {
+    const card = createTodoCard(
+      todo,
+      () => {
+        saveTodos();
+        renderTodos();
+      },
+      handleDelete,
+      "upcoming",
+    );
+
+    upcomingList.appendChild(card);
+  });
+
+  overdueItems.forEach((todo) => {
+    const card = createTodoCard(
+      todo,
+      () => {
+        saveTodos();
+        renderTodos();
+      },
+      handleDelete,
+      "overdue",
+    );
+
+    overdueList.appendChild(card);
   });
 
   doneItems.forEach((todo) => {
-    const row = createTodoRow(todo, renderTodos, (id) => {
-      const index = todos.findIndex((todo) => todo.id === id);
+    const card = createTodoCard(
+      todo,
+      () => {
+        saveTodos();
+        renderTodos();
+      },
+      handleDelete,
+      "done",
+    );
 
-      if (index !== -1) {
-        todos.splice(index, 1);
-      }
-
-      renderTodos();
-    });
-    doneList.appendChild(row);
+    doneList.appendChild(card);
   });
 };
 
@@ -62,6 +132,7 @@ if (!deleteAllButton) {
 
 deleteAllButton.addEventListener("click", () => {
   todos.length = 0;
+  saveTodos();
   renderTodos();
 });
 
@@ -78,6 +149,11 @@ if (!todoForm || !todoTitle) {
 todoForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
+  const newId =
+    todos.length > 0
+      ? Math.max(...todos.map((todo) => Number(todo.id))) + 1
+      : 1;
+
   const selectedPriority = document.querySelector<HTMLInputElement>(
     'input[name="priority"]:checked',
   );
@@ -86,22 +162,28 @@ todoForm.addEventListener("submit", (event) => {
     throw new Error("Priority not selected");
   }
 
-  const newId =
-  todos.length > 0
-    ? Math.max(...todos.map((todo) => Number(todo.id))) + 1
-    : 1;
+  const todoDueDate =
+    document.querySelector<HTMLInputElement>("#todo-due-date");
+  if (!todoDueDate) {
+    throw new Error("Due Date not selected");
+  }
 
   const newTodo: Todo = {
     id: String(newId),
     title: todoTitle.value,
     priority: selectedPriority.value as Todo["priority"],
     createdAt: new Date().toISOString(),
+    dueDate: todoDueDate.value,
     completed: false,
   };
 
   todos.push(newTodo);
-renderTodos();
+  saveTodos();
+  renderTodos();
+
+  todoForm.reset();
 });
 
+loadTodos();
 renderTodos();
 renderDate();

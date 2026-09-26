@@ -6,6 +6,7 @@ export const todoData: Todo[] = [
     title: "Mengerjakan Mission",
     priority: "high",
     createdAt: "2026-09-21T09:00:00",
+    dueDate: "2026-09-20",
     completed: false,
   },
   {
@@ -13,6 +14,7 @@ export const todoData: Todo[] = [
     title: "Belajar Javascript dan Typescript",
     priority: "medium",
     createdAt: "2026-09-21T10:00:00",
+    dueDate: "2026-09-28",
     completed: false,
   },
   {
@@ -20,6 +22,7 @@ export const todoData: Todo[] = [
     title: "Meeting dengan Asmen",
     priority: "low",
     createdAt: "2026-09-20T14:00:00",
+    dueDate: "2026-09-28",
     completed: true,
   },
 ];

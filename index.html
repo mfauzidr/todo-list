@@ -8,130 +8,106 @@
   <title>Todo List</title>
 </head>
 
-<body class="bg-blue-100 text-slate-900">
-  <div id="app" class="min-h-screen px-4 py-6 sm:px-6 lg:px-8">
-    <header class="mx-auto flex max-w-5xl flex-col gap-6 border-b border-slate-200 pb-6">
-      <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h1 class="text-3xl font-bold tracking-tight text-blue-900">Todo List</h1>
-        </div>
-
-        <div class="flex gap-8 text-sm text-slate-500 sm:text-right">
-          <section>
-            <h2 class="font-semibold text-slate-800">Fauzi</h2>
-            <p>Frontend Developer</p>
-          </section>
-
-          <section>
-            <p id="current-day" class="font-semibold text-slate-800"></p>
-            <p id="current-date"></p>
-          </section>
-        </div>
+<body class="bg-amber-50 text-slate-900">
+  <div id="app" class="min-h-screen px-4 py-6 sm:px-8 lg:px-10">
+    <header class="mx-auto flex max-w-6xl flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <p class="mb-1 text-sm font-black text-rose-500">A little list, a lot of wins <span aria-hidden="true">✦</span></p>
+        <h1 class="text-4xl font-black text-blue-950 sm:text-5xl">Todo <span class="text-orange-500">Club</span></h1>
+      </div>
+      <div class="flex items-center justify-between gap-5 text-sm sm:justify-end sm:text-right">
+        <section class="rounded-2xl bg-yellow-200 px-4 py-2">
+          <h2 class="font-black text-blue-950">Fauzi</h2>
+          <p class="text-slate-700">Frontend Developer</p>
+        </section>
+        <section class="font-semibold text-slate-600">
+          <p id="current-day" class="text-lg font-black text-blue-950"></p>
+          <p id="current-date"></p>
+        </section>
       </div>
     </header>
 
-    <main class="mx-auto flex max-w-5xl flex-col gap-6 py-6">
-      <section class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-        <header class="mb-5 border-b border-slate-100 pb-4">
-          <h1 class="text-lg font-semibold text-slate-900">Create Task</h1>
-          <p class="mt-1 text-sm text-slate-500">Add something you want to accomplish today.</p>
+    <main class="flex flex-col mx-auto max-w-6xl gap-6 py-7">
+      <section class="h-fit rounded-3xl bg-cyan-200 p-5 sm:p-6">
+        <header class="mb-5">
+          <p class="text-xs font-black uppercase text-cyan-900">Ready, set, do!</p>
+          <h2 class="mt-1 text-2xl font-black text-blue-950">Make a new task</h2>
+          <p class="mt-1 text-sm font-medium text-slate-700">What's on your mind today?</p>
         </header>
 
         <form class="flex flex-col gap-5" id="todo-form">
           <div class="flex flex-col gap-2">
-            <label for="todo-title" class="text-sm font-semibold text-slate-700">What do you need to do today?</label>
-
-            <input id="todo-title" name="title" rows="3" placeholder="Write your task..."
-              class="w-full resize-none rounded-lg border border-slate-300 bg-slate-50 px-3 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"></input>
+            <label for="todo-title" class="text-sm font-bold text-blue-950">Task</label>
+            <input id="todo-title" name="title" type="text" placeholder="Write your task..."
+              class="w-full rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 outline-none placeholder:font-medium placeholder:text-slate-400 focus:ring-4 focus:ring-cyan-100" required />
           </div>
 
-          <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <fieldset class="flex flex-wrap items-center gap-x-5 gap-y-2">
-              <legend class="mb-2 w-full text-sm font-semibold text-slate-700 sm:mb-0 sm:w-auto">Priority</legend>
-
-              <label class="flex cursor-pointer items-center gap-2 text-sm text-slate-600">
-                <input type="radio" name="priority" value="low" class="h-4 w-4 accent-green-600" />
-                Low
-              </label>
-
-              <label class="flex cursor-pointer items-center gap-2 text-sm text-slate-600">
-                <input type="radio" name="priority" value="medium" class="h-4 w-4 accent-yellow-500" />
-                Medium
-              </label>
-
-              <label class="flex cursor-pointer items-center gap-2 text-sm text-slate-600">
-                <input type="radio" name="priority" value="high" class="h-4 w-4 accent-red-600" />
-                High
-              </label>
-            </fieldset>
-
-            <button type="submit"
-              class="w-full rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 sm:w-auto">
-              Add Task
-            </button>
+          <div class="flex flex-col gap-2">
+            <label for="todo-due-date" class="text-sm font-bold text-blue-950">Due date</label>
+            <input id="todo-due-date" name="dueDate" type="date"
+              class="w-full rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 outline-none focus:ring-4 focus:ring-cyan-100" required />
           </div>
+
+          <fieldset class="flex flex-wrap items-center gap-2">
+            <legend class="mb-2 w-full text-sm font-bold text-blue-950">How important?</legend>
+            <label class="flex cursor-pointer items-center gap-2 rounded-full bg-green-100 px-3 py-2 text-sm font-bold text-green-900">
+              <input type="radio" name="priority" value="low" class="h-4 w-4 accent-green-600" required /> Low
+            </label>
+            <label class="flex cursor-pointer items-center gap-2 rounded-full bg-yellow-100 px-3 py-2 text-sm font-bold text-yellow-900">
+              <input type="radio" name="priority" value="medium" class="h-4 w-4 accent-yellow-500" /> Medium
+            </label>
+            <label class="flex cursor-pointer items-center gap-2 rounded-full bg-rose-100 px-3 py-2 text-sm font-bold text-rose-900">
+              <input type="radio" name="priority" value="high" class="h-4 w-4 accent-rose-600" /> High
+            </label>
+          </fieldset>
+
+          <button type="submit"
+            class="w-full rounded-2xl bg-orange-400 px-5 py-3 text-base font-black text-blue-950 transition hover:bg-orange-300 focus:outline-none focus:ring-4 focus:ring-white sm:w-auto">
+            <span aria-hidden="true">✦</span> Add task
+          </button>
         </form>
       </section>
 
-      <section class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-        <header class="flex items-center justify-between border-b border-slate-200 px-5 py-4 sm:px-6">
-          <h2 class="text-lg font-semibold text-slate-900">To Do</h2>
-          <span class="text-xs font-medium uppercase tracking-wider text-slate-400">In progress</span>
-        </header>
-        <div class="overflow-x-auto">
-          <table class="w-full min-w-sm table-fixed text-left text-sm">
-            <thead class="bg-slate-50">
-              <tr class="text-center">
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  Task Name
-                </th>
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  Priority
-                </th>
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  Action
-                </th>
-              </tr>
-            </thead>
+      <div class="flex flex-col gap-5">
+        <section class="overflow-hidden rounded-3xl bg-white">
+          <header class="flex items-center justify-between bg-green-200 px-4 py-3">
+            <h2 class="text-lg font-black text-blue-950">Today <span aria-hidden="true">☀</span></h2>
+            <span class="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-green-900">In progress</span>
+          </header>
+          <div id="today-list" class="flex min-h-20 flex-col gap-2 p-3"></div>
+        </section>
 
-            <tbody id="todo-list"></tbody>
-          </table>
-        </div>
-      </section>
+        <section class="overflow-hidden rounded-3xl bg-white">
+          <header class="flex items-center justify-between bg-sky-200 px-4 py-3">
+            <h2 class="text-lg font-black text-blue-950">Coming up <span aria-hidden="true">➜</span></h2>
+            <span class="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-sky-900">Soon</span>
+          </header>
+          <div id="upcoming-list" class="flex min-h-20 flex-col gap-2 p-3"></div>
+        </section>
 
-      <section class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-        <header class="flex items-center justify-between border-b border-slate-200 px-5 py-4 sm:px-6">
-          <h2 class="text-lg font-semibold text-slate-900">Task Done</h2>
-          <span class="text-xs font-medium uppercase tracking-wider text-slate-400">Completed</span>
-        </header>
-        <div class="overflow-x-auto">
-          <table
-            class="w-full min-w-sm table-fixed text-left text-xs md:text-sm lg:text-base">
-            <thead class="bg-slate-50">
-              <tr class="text-center">
-                <th class="px-4 py-3 font-semibold uppercase tracking-wider text-slate-500">
-                  Task Name
-                </th>
-                <th class="px-4 py-3 font-semibold uppercase tracking-wider text-slate-500">
-                  Priority
-                </th>
-                <th class="px-4 py-3 font-semibold uppercase tracking-wider text-slate-500">
-                  Action
-                </th>
-              </tr>
-            </thead>
+        <section class="overflow-hidden rounded-3xl bg-white">
+          <header class="flex items-center justify-between bg-rose-200 px-4 py-3">
+            <h2 class="text-lg font-black text-blue-950">Overdue <span aria-hidden="true">!</span></h2>
+            <span class="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-rose-900">Catch up</span>
+          </header>
+          <div id="overdue-list" class="flex min-h-20 flex-col gap-2 p-3"></div>
+        </section>
 
-            <tbody id="done-list"></tbody>
-          </table>
-        </div>
-      </section>
+        <section class="overflow-hidden rounded-3xl bg-white">
+          <header class="flex items-center justify-between bg-yellow-200 px-4 py-3">
+            <h2 class="text-lg font-black text-blue-950">All done <span aria-hidden="true">✓</span></h2>
+            <span class="rounded-full bg-white/70 px-3 py-1 text-xs font-bold text-yellow-900">Hooray!</span>
+          </header>
+          <div id="done-list" class="flex min-h-20 flex-col gap-2 p-3"></div>
+        </section>
 
-      <section class="flex justify-end">
-        <button type="button" id="delete-all"
-          class="w-full rounded-lg border border-red-200 bg-white px-5 py-2.5 text-sm font-semibold text-red-600 transition hover:border-red-300 hover:bg-red-50 focus:outline-none focus:ring-4 focus:ring-red-100 sm:w-auto">
-          Delete All
-        </button>
-      </section>
+        <section class="flex justify-end sm:col-span-2">
+          <button type="button" id="delete-all"
+            class="rounded-xl bg-rose-100 px-4 py-2 text-sm font-bold text-rose-800 transition hover:bg-rose-200 focus:outline-none focus:ring-4 focus:ring-rose-100">
+            Clear all tasks
+          </button>
+        </section>
+      </div>
     </main>
   </div>
 
