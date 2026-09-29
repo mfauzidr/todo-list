@@ -13,8 +13,8 @@ const saveTodos = () => {
 const loadTodos = () => {
   const storedTodos = localStorage.getItem("todos");
   if (storedTodos) {
-    const parsedTodos = JSON.parse(storedTodos);
-    todos = parsedTodos;
+    const parsedTodos = JSON.parse(storedTodos) as Todo[];
+    todos = parsedTodos.map((todo) => ({ ...todo, description: todo.description ?? "" }));
   }
 };
 
@@ -141,8 +141,9 @@ deleteAllButton.addEventListener("click", () => {
 const todoForm = document.querySelector<HTMLFormElement>("#todo-form");
 
 const todoTitle = document.querySelector<HTMLInputElement>("#todo-title");
+const todoDescription = document.querySelector<HTMLTextAreaElement>("#todo-description");
 
-if (!todoForm || !todoTitle) {
+if (!todoForm || !todoTitle || !todoDescription) {
   throw new Error("Todo form element not found");
 }
 
@@ -171,6 +172,7 @@ todoForm.addEventListener("submit", (event) => {
   const newTodo: Todo = {
     id: String(newId),
     title: todoTitle.value,
+    description: todoDescription.value.trim(),
     priority: selectedPriority.value as Todo["priority"],
     createdAt: new Date().toISOString(),
     dueDate: todoDueDate.value,

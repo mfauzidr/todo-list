@@ -5,6 +5,7 @@ export type TodoStatus = "today" | "upcoming" | "overdue" | "done";
 export interface Todo {
   id: string;
   title: string;
+  description: string;
   priority: Priority;
   createdAt: string;
   dueDate: string;

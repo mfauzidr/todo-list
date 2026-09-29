@@ -43,6 +43,12 @@
           </div>
 
           <div class="flex flex-col gap-2">
+            <label for="todo-description" class="text-sm font-bold text-blue-950">Description <span class="font-medium text-slate-500">(optional)</span></label>
+            <textarea id="todo-description" name="description" rows="3" placeholder="Add a few details..."
+              class="w-full resize-y rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 outline-none placeholder:font-medium placeholder:text-slate-400 focus:ring-4 focus:ring-cyan-100"></textarea>
+          </div>
+
+          <div class="flex flex-col gap-2">
             <label for="todo-due-date" class="text-sm font-bold text-blue-950">Due date</label>
             <input id="todo-due-date" name="dueDate" type="date"
               class="w-full rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 outline-none focus:ring-4 focus:ring-cyan-100" required />

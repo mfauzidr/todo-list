@@ -68,6 +68,10 @@ export const createTodoCard = (
   taskName.textContent = todo.title;
   taskName.className = "break-words text-sm font-bold text-slate-900";
 
+  const description = document.createElement("p");
+  description.textContent = todo.description;
+  description.className = "mt-1 whitespace-pre-wrap break-words text-sm text-slate-700";
+
   // Priority badge
   const priorityBadge = document.createElement("span");
   priorityBadge.textContent = todo.priority;
@@ -121,7 +125,11 @@ export const createTodoCard = (
   // Assemble
   todoHeader.append(taskName, priorityBadge);
 
-  todoContent.append(todoHeader, dueDate);
+  todoContent.append(todoHeader);
+  if (todo.description) {
+    todoContent.append(description);
+  }
+  todoContent.append(dueDate);
 
   card.append(statusElement, todoContent, deleteButton);
 
